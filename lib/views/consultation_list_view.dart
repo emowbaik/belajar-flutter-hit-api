@@ -81,39 +81,6 @@ class _ConsultationListViewState extends State<ConsultationListView> {
                       refreshData();
                     }
                   },
-
-                  onLongPress: () async {
-                    bool? confirm = await showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: Text("Hapus Data"),
-                        content: Text("Apakah anda yakin ingin menghapus data ini?"),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: Text("Cancel"),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            child: Text("Delete"),
-                          ),
-                        ],
-                      ),
-                    );
-
-                    if (confirm != true) return;
-
-                    try {
-                      await apiService.deleteConsultation(item.id);
-                      refreshData();
-                    } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(e.toString())),
-                        );
-                      }
-                    }
-                  },
                 ),
               );
             },
